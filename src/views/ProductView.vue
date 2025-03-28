@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import NavBar from '@/components/NavBar.vue';
-import ProductComponent from '@/components/ProductComponent.vue';
+import ProductComponent from '@/components/products/ProductComponent.vue';
 import { defineComponent } from 'vue';
 
 // Components
