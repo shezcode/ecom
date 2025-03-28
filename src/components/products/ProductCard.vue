@@ -10,7 +10,7 @@ const show = ref(false);
 
 <template>
   <v-card class="mx-auto my-3" max-width="400">
-    <v-img height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover></v-img>
+    <v-img height="200" :src="props.product.imageUrl" cover :alt="props.product.name"></v-img>
     <v-card-title>{{ props.product.name }}</v-card-title>
     <v-card-subtitle>{{ props.product.price }}</v-card-subtitle>
     <v-card-text>
