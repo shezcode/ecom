@@ -1,7 +1,8 @@
 # ecom
 
 Random ecommerce frontend app in Vue.
-json backend ftw.
+
+todo: a lot.
 
 ## Project Setup
 
@@ -32,5 +33,3 @@ npm run build
 ```sh
 npm run lint
 ```
-
-just a test
