@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import type { Product } from '@/types/product';
+import { ref } from 'vue';
+
+const props = defineProps<{
+  product: Product;
+}>();
+const show = ref(false);
+</script>
+
 <template>
   <v-card class="mx-auto my-3" max-width="400">
     <v-img height="200" src="https://cdn.vuetifyjs.com/images/cards/docks.jpg" cover></v-img>
@@ -21,13 +31,3 @@
     </v-expand-transition>
   </v-card>
 </template>
-
-<script setup lang="ts">
-import type { Product } from '@/types/product';
-import { ref } from 'vue';
-
-const props = defineProps<{
-  product: Product;
-}>();
-const show = ref(false);
-</script>
