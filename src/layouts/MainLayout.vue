@@ -4,7 +4,7 @@ import FooterComponent from '@/components/FooterComponent.vue';
 </script>
 
 <template>
-  <div class="main-layout">
+  <div class="main-layout d-flex flex-column min-vh-100">
     <NavBar />
     <v-main>
       <v-container>
@@ -14,3 +14,11 @@ import FooterComponent from '@/components/FooterComponent.vue';
     <FooterComponent />
   </div>
 </template>
+
+<style scoped>
+.main-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+</style>

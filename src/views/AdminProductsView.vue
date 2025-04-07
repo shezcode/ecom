@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import AdminLayout from '@/layouts/AdminLayout.vue';
+</script>
+
 <template>
-  <div>admin products view</div>
+  <AdminLayout>
+    <div>admin products view</div>
+  </AdminLayout>
 </template>

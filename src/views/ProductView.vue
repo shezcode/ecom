@@ -1,9 +1,10 @@
 <template>
-  <NavBar />
-  <ProductComponent />
+  <MainLayout>
+    <ProductComponent />
+  </MainLayout>
 </template>
 
 <script setup lang="ts">
-import NavBar from '@/components/NavBar.vue';
 import ProductComponent from '@/components/products/ProductComponent.vue';
+import MainLayout from '@/layouts/MainLayout.vue';
 </script>

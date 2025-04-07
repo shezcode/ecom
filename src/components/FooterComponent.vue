@@ -1,5 +1,5 @@
 <template>
-  <v-footer app color="primary" dark>
+  <v-footer color="primary" dark class="footer">
     <v-container>
       <v-row justify="space-between">
         <v-col cols="12" md="4" class="text-center text-md-left">
@@ -70,3 +70,10 @@
     </v-container>
   </v-footer>
 </template>
+
+<style>
+.footer {
+  position: relative;
+  margin-top: 2rem;
+}
+</style>

@@ -3,7 +3,7 @@
     <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
     <v-app-bar-title>
-      <router-link to="/" class="text-white text-decoration-none"> E-Commerce App </router-link>
+      <router-link to="/" class="text-white text-decoration-none">ECOM</router-link>
     </v-app-bar-title>
 
     <v-spacer></v-spacer>
@@ -81,7 +81,7 @@
   <!-- Navigation Drawer for Mobile -->
   <v-navigation-drawer v-model="drawer" temporary>
     <v-list>
-      <v-list-item title="E-Commerce App" prepend-icon="mdi-store"></v-list-item>
+      <v-list-item title="ECOM" prepend-icon="mdi-store"></v-list-item>
       <v-divider></v-divider>
       <v-list-item to="/" title="Home" prepend-icon="mdi-home"></v-list-item>
       <v-list-item to="/products" title="Products" prepend-icon="mdi-tag-multiple"></v-list-item>
