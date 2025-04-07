@@ -36,4 +36,12 @@ export default createVuetify({
       darkTheme,
     },
   },
+  defaults: {
+    global: {
+      ripple: true,
+    },
+    VBtn: {
+      fontWeight: '600',
+    },
+  },
 });
