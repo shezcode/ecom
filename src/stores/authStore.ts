@@ -1,6 +1,8 @@
 import type { LoginCredentials } from '@/types/auth';
 import { defineStore } from 'pinia';
 import router from '@/router';
+import api from '@/services/api';
+import type { User } from '@/types/user';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -33,7 +35,7 @@ export const useAuthStore = defineStore('auth', {
           localStorage.setItem('token', this.token);
 
           if (user.role === 'admin') {
-            router.push('/admin/dasboard');
+            router.push('/admin/dashboard');
           } else {
             router.push('/');
           }
