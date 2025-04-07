@@ -58,3 +58,46 @@ a,
     padding: 0 2rem;
   }
 }
+
+:root {
+  --bg-center: #2A3B4C;
+  --bg-outer: #0D1B2A;
+}
+
+body {
+  position: relative;
+  background-color: var(--bg-outer);
+  overflow-x: hidden;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  height: 100vw;
+  max-width: 1500px;
+  max-height: 1500px;
+  background: radial-gradient(circle at center,
+      var(--bg-center) 0%,
+      var(--bg-center) 25%,
+      rgba(42, 59, 76, 0.8) 50%,
+      rgba(13, 27, 42, 0.6) 75%,
+      rgba(13, 27, 42, 0) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+#app {
+  background: transparent;
+}
+
+.v-application {
+  background: transparent !important;
+}
+
+.v-main {
+  background: transparent !important;
+}

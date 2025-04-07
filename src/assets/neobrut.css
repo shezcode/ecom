@@ -1,0 +1,139 @@
+:root {
+  /* Primary colors */
+  --neobrut-black: #1A1A1A;
+  --neobrut-white: #F5F5F5;
+  --neobrut-purple: #cd76ea;
+  --neobrut-blue: #39dbff;
+  --neobrut-yellow: #fff500;
+  --neobrut-green: #00ff75;
+  --neobrut-orange: #ffb443;
+  --neobrut-red: #ff5e5e;
+
+  /* Layout */
+  --neobrut-border-width: 3px;
+  --neobrut-shadow-offset: 6px;
+  --neobrut-element-radius: 4px;
+  --neobrut-spacing-unit: 8px;
+
+  /* Typography */
+  --neobrut-heading-font: 'Montserrat', sans-serif;
+  --neobrut-body-font: 'Poppins', sans-serif;
+}
+
+
+/* Neobrutalist Card */
+.neobrut-card {
+  background-color: var(--neobrut-white);
+  border: var(--neobrut-border-width) solid var(--neobrut-black);
+  box-shadow: var(--neobrut-shadow-offset) var(--neobrut-shadow-offset) 0 var(--neobrut-black);
+  border-radius: var(--neobrut-element-radius);
+  transform: translateZ(0);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.neobrut-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: calc(var(--neobrut-shadow-offset) + 2px) calc(var(--neobrut-shadow-offset) + 2px) 0 var(--neobrut-black);
+}
+
+/* Neobrutalist Button */
+.neobrut-btn {
+  background-color: var(--neobrut-purple);
+  color: var(--neobrut-white);
+  border: var(--neobrut-border-width) solid var(--neobrut-black);
+  box-shadow: var(--neobrut-shadow-offset) var(--neobrut-shadow-offset) 0 var(--neobrut-black);
+  border-radius: var(--neobrut-element-radius);
+  padding: calc(var(--neobrut-spacing-unit) * 1.5) calc(var(--neobrut-spacing-unit) * 3);
+  font-family: var(--neobrut-heading-font);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.neobrut-btn:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: calc(var(--neobrut-shadow-offset) + 2px) calc(var(--neobrut-shadow-offset) + 2px) 0 var(--neobrut-black);
+}
+
+.neobrut-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: calc(var(--neobrut-shadow-offset) - 4px) calc(var(--neobrut-shadow-offset) - 4px) 0 var(--neobrut-black);
+}
+
+/* Accent variations */
+.neobrut-green {
+  background-color: var(--neobrut-green);
+}
+
+.neobrut-blue {
+  background-color: var(--neobrut-blue);
+}
+
+.neobrut-yellow {
+  background-color: var(--neobrut-yellow);
+}
+
+.neobrut-orange {
+  background-color: var(--neobrut-orange);
+}
+
+.neobrut-purple {
+  background-color: var(--neobrut-purple);
+}
+
+.neobrut-red {
+  background-color: var(--neobrut-red);
+}
+
+
+
+
+
+
+
+/* Typography */
+.neobrut-title {
+  font-family: var(--neobrut-heading-font);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--neobrut-black);
+  position: relative;
+  display: inline-block;
+}
+
+.neobrut-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-color: var(--neobrut-accent3);
+  z-index: -1;
+}
+
+/* Layout helpers */
+.neobrut-offset-box {
+  position: relative;
+}
+
+.neobrut-offset-box::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 100%;
+  height: 100%;
+  background-color: var(--neobrut-accent1);
+  z-index: -1;
+  border: var(--neobrut-border-width) solid var(--neobrut-black);
+}
+
+/* Implement grid with exaggerated gaps */
+.neobrut-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: calc(var(--neobrut-spacing-unit) * 4);
+}

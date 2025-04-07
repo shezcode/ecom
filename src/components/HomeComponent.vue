@@ -68,6 +68,7 @@ const getCategoryColor = (index: number) => {
       hide-delimiter-background
       show-arrows="hover"
       interval="5000"
+      class="round"
     >
       <!-- Slogan Slide -->
       <v-carousel-item>
@@ -145,7 +146,7 @@ const getCategoryColor = (index: number) => {
     </v-container>
 
     <!-- About Us Section -->
-    <v-sheet color="grey-lighten-4" class="py-12">
+    <v-sheet color="grey-lighten-1" class="py-12">
       <v-container>
         <v-row>
           <v-col cols="12" md="6">
@@ -230,6 +231,11 @@ const getCategoryColor = (index: number) => {
 <style scoped>
 .category-icon {
   font-size: 120px;
+}
+
+.round {
+  border-radius: 12px;
+  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
 }
 
 .carousel-content {
