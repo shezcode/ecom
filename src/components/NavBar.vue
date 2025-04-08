@@ -140,14 +140,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { ref, computed, onMounted, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
 
 const drawer = ref(false);
 const searchQuery = ref('');
 const router = useRouter();
+const route = useRoute();
 const authStore = useAuthStore();
+
+onMounted(() => {
+  if (route.path === '/products' && route.query.search) {
+    searchQuery.value = route.query.search as string;
+  }
+});
+
+watch(
+  () => route.query.search,
+  (newQuery) => {
+    if (route.path === '/products' && newQuery) {
+      searchQuery.value = newQuery as string;
+    }
+  },
+);
 
 const userInitials = computed(() => {
   if (!authStore.user) return '';
@@ -158,9 +174,8 @@ const search = () => {
   if (searchQuery.value.trim()) {
     router.push({
       path: '/products',
-      query: { search: searchQuery.value },
+      query: { search: searchQuery.value.trim() },
     });
-    searchQuery.value = '';
   }
 };
 </script>
