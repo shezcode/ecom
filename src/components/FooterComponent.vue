@@ -75,5 +75,6 @@
 .footer {
   position: relative;
   margin-top: 2rem;
+  background: linear-gradient(to bottom, rgba(65, 90, 119, 0.9), rgba(13, 27, 42, 1)) !important;
 }
 </style>

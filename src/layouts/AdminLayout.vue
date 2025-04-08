@@ -20,3 +20,10 @@ import AdminSidebar from '@/components/AdminSidebar.vue';
     <FooterComponent />
   </div>
 </template>
+
+<style scoped>
+.admin-layout {
+  background: radial-gradient(circle at center, #344a64 0%, #0d1b2a 100%);
+  min-height: 100vh;
+}
+</style>

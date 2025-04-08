@@ -68,7 +68,6 @@ const getCategoryColor = (index: number) => {
       hide-delimiter-background
       show-arrows="hover"
       interval="5000"
-      class="round"
     >
       <!-- Slogan Slide -->
       <v-carousel-item>
@@ -122,18 +121,18 @@ const getCategoryColor = (index: number) => {
 
     <!-- Featured Products -->
     <v-container class="mt-12 mb-12">
-      <h2 class="text-h4 text-center mb-8 font-weight-bold">Featured Products</h2>
+      <h2 class="text-h4 text-center mb-8 font-weight-bold text-white">Featured Products</h2>
       <v-row v-if="categoryStore.loading">
         <v-col cols="12" class="text-center">
           <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
-          <div class="mt-4">Loading categories...</div>
+          <div class="mt-4 text-white">Loading categories...</div>
         </v-col>
       </v-row>
       <v-row v-else>
         <v-col cols="12" class="text-center">
           <v-btn
             size="large"
-            color="primary"
+            color="white"
             variant="elevated"
             class="mx-2"
             to="/products"
@@ -146,28 +145,36 @@ const getCategoryColor = (index: number) => {
     </v-container>
 
     <!-- About Us Section -->
-    <v-sheet color="grey-lighten-1" class="py-12">
+    <v-sheet class="py-12 bg-transparent">
       <v-container>
         <v-row>
           <v-col cols="12" md="6">
-            <h2 class="text-h4 font-weight-bold mb-4">About {{ companyInfo.name }}</h2>
+            <h2 class="text-h4 font-weight-bold mb-4 text-white">About {{ companyInfo.name }}</h2>
             <v-divider class="mb-4"></v-divider>
-            <p class="text-body-1 mb-4">
+            <p class="text-body-1 mb-4 text-white">
               Founded in {{ companyInfo.founded }}, {{ companyInfo.name }} has been committed to
               delivering quality products that enhance your everyday life.
             </p>
-            <p class="text-body-1 mb-4">
+            <p class="text-body-1 mb-4 text-white">
               {{ companyInfo.mission }}
             </p>
-            <p class="text-body-1 mb-6">
+            <p class="text-body-1 mb-6 text-white">
               We work directly with manufacturers to bring you the best prices without compromising
               on quality. Our team carefully selects each product to ensure it meets our high
               standards.
             </p>
-            <v-btn color="primary" variant="elevated" to="/about"> Learn More About Us </v-btn>
+            <v-btn color="white" variant="elevated" to="/about">
+              Learn More About Us
+              <v-icon end>mdi-arrow-right</v-icon>
+            </v-btn>
           </v-col>
           <v-col cols="12" md="6" class="d-flex align-center justify-center">
-            <v-img src="/api/placeholder/500/300" max-width="500" alt="About us image"></v-img>
+            <v-img
+              src="/api/placeholder/500/300"
+              max-width="500"
+              alt="About us image"
+              class="rounded-lg"
+            ></v-img>
           </v-col>
         </v-row>
       </v-container>
@@ -175,10 +182,10 @@ const getCategoryColor = (index: number) => {
 
     <!-- Customer Reviews -->
     <v-container class="py-12">
-      <h2 class="text-h4 text-center mb-8 font-weight-bold">What Our Customers Say</h2>
+      <h2 class="text-h4 text-center mb-8 font-weight-bold text-white">What Our Customers Say</h2>
       <v-row>
         <v-col v-for="review in reviews" :key="review.id" cols="12" md="4">
-          <v-card class="mx-auto h-100" variant="elevated">
+          <v-card class="mx-auto h-100 review-card" variant="elevated">
             <v-card-item>
               <template v-slot:prepend>
                 <v-avatar size="40">
@@ -206,7 +213,7 @@ const getCategoryColor = (index: number) => {
         </v-col>
       </v-row>
       <div class="text-center mt-8">
-        <v-btn color="primary" variant="outlined" size="large"> View All Reviews </v-btn>
+        <v-btn color="white" variant="outlined" size="large"> View All Reviews </v-btn>
       </div>
     </v-container>
 
@@ -233,15 +240,25 @@ const getCategoryColor = (index: number) => {
   font-size: 120px;
 }
 
-.round {
-  border-radius: 12px;
-  box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
-}
-
 .carousel-content {
   max-width: 80%;
   margin: 0 auto;
   padding: 0 40px;
+}
+
+.home-container {
+  color: white;
+}
+
+.review-card {
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+}
+
+.review-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
 }
 
 @media (max-width: 600px) {

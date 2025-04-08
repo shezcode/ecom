@@ -8,8 +8,19 @@
 
     <v-spacer></v-spacer>
 
-    <!-- Search Component -->
-    <SearchComponent class="hidden-sm-and-down" />
+    <!-- Search -->
+    <v-text-field
+      v-model="searchQuery"
+      density="compact"
+      variant="solo"
+      prepend-inner-icon="mdi-magnify"
+      label="Search"
+      single-line
+      hide-details
+      @keyup.enter="search"
+      class="hidden-sm-and-down"
+      style="max-width: 300px"
+    ></v-text-field>
 
     <v-spacer></v-spacer>
 
@@ -72,12 +83,6 @@
     <v-list>
       <v-list-item title="ECOM" prepend-icon="mdi-store"></v-list-item>
       <v-divider></v-divider>
-
-      <!-- Mobile Search -->
-      <v-list-item>
-        <SearchComponent dense />
-      </v-list-item>
-
       <v-list-item to="/" title="Home" prepend-icon="mdi-home"></v-list-item>
       <v-list-item to="/products" title="Products" prepend-icon="mdi-tag-multiple"></v-list-item>
       <v-list-item to="/categories" title="Categories" prepend-icon="mdi-shape"></v-list-item>
@@ -138,9 +143,9 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
-import SearchComponent from '@/components/SearchComponent.vue';
 
 const drawer = ref(false);
+const searchQuery = ref('');
 const router = useRouter();
 const authStore = useAuthStore();
 
@@ -148,4 +153,14 @@ const userInitials = computed(() => {
   if (!authStore.user) return '';
   return `${authStore.user.firstName[0]}${authStore.user.lastName[0]}`;
 });
+
+const search = () => {
+  if (searchQuery.value.trim()) {
+    router.push({
+      path: '/products',
+      query: { search: searchQuery.value },
+    });
+    searchQuery.value = '';
+  }
+};
 </script>

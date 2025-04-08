@@ -20,5 +20,6 @@ import FooterComponent from '@/components/FooterComponent.vue';
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  background: radial-gradient(circle at center, #344a64 0%, #0d1b2a 100%);
 }
 </style>
