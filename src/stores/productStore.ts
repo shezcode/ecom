@@ -39,7 +39,7 @@ export const useProductStore = defineStore('product', {
       this.error = null;
 
       try {
-        const response = await api.get(`/products?categoryId=${categoryId}`);
+        const response = await api.get(`/products/category/${categoryId}`);
         this.products = response.data;
       } catch (err) {
         this.error = 'Failed fetching products by category';

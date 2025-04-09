@@ -4,8 +4,8 @@ import api from './api';
 export const searchService = {
   async searchProducts(query: string): Promise<Product[]> {
     try {
-      const nameResponse = await api.get(`/products?name_like=${encodeURIComponent(query)}`);
-      const descResponse = await api.get(`/products?description_like=${encodeURIComponent(query)}`);
+      const nameResponse = await api.get(`/products?name=${encodeURIComponent(query)}`);
+      const descResponse = await api.get(`/products?description=${encodeURIComponent(query)}`);
 
       const nameResults = nameResponse.data as Product[];
       const descResults = descResponse.data as Product[];
