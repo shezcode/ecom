@@ -8,11 +8,12 @@ const router = useRouter();
 
 const isEmpty = computed(() => cartStore.items.length === 0);
 
-const formatPrice = (price: number) => {
+const formatPrice = (price: number | string) => {
+  const numericPrice = typeof price === 'string' ? parseFloat(price) : price;
   return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-  }).format(price);
+  }).format(numericPrice);
 };
 
 const continueShopping = () => {
@@ -123,7 +124,7 @@ const checkout = () => {
 
           <div class="d-flex justify-space-between mb-2">
             <span>Subtotal:</span>
-            <span class="font-weight-medium">{{ cartStore.formattedTotalPrice }}</span>
+            <span class="font-weight-medium">{{ cartStore.formattedPrice }}</span>
           </div>
 
           <div class="d-flex justify-space-between mb-2">

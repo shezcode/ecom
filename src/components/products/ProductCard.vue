@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useCartStore } from '@/stores/cartStore';
 import type { Product } from '@/types/product';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps<{
   product: Product;
@@ -19,10 +19,14 @@ const addToCart = () => {
   }, 3000);
 };
 
-const formattedPrice = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-}).format(props.product.price);
+const formattedPrice = computed(() => {
+  const price =
+    typeof props.product.price === 'string' ? parseFloat(props.product.price) : props.product.price;
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  }).format(price);
+});
 </script>
 
 <template>

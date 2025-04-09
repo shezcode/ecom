@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, computed } from 'vue';
 import { useProductStore } from '@/stores/productStore';
+import { useCategoryStore } from '@/stores/categoryStore';
 import ProductCard from '@/components/products/ProductCard.vue';
 import { useRoute, useRouter } from 'vue-router';
 import { searchService } from '@/services/searchService';
 import type { Product } from '@/types/product';
 
 const productStore = useProductStore();
+const categoryStore = useCategoryStore();
 const route = useRoute();
 const router = useRouter();
 const searchQuery = ref('');
@@ -15,40 +17,62 @@ const isSearching = ref(false);
 const error = ref<null | string>(null);
 const loading = ref(false);
 
+// Get the current category when filtering by category
+const currentCategoryId = computed(() => route.query.categoryId as string | undefined);
+const currentCategory = computed(() => {
+  if (!currentCategoryId.value) return null;
+  return (
+    categoryStore.categories.find((cat) => cat.id.toString() === currentCategoryId.value) || null
+  );
+});
+
 // Handle initial load and search query
 onMounted(async () => {
   const query = (route.query.search as string) || null;
+  const categoryId = route.query.categoryId as string | undefined;
+
+  loading.value = true;
+
   if (query) {
     searchQuery.value = query;
     await performSearch(query);
+  } else if (categoryId) {
+    await productStore.fetchProductsByCategory(categoryId);
   } else {
-    loading.value = true;
     await productStore.fetchProducts();
-    loading.value = false;
   }
+
+  loading.value = false;
 });
 
 // Watch for route changes to update search results
 watch(
-  () => route.query.search,
+  () => route.query,
   async (newQuery) => {
-    const query = (newQuery as string) || null;
-    searchQuery.value = query || '';
+    const searchQueryParam = (newQuery.search as string) || null;
+    const categoryId = newQuery.categoryId as string | undefined;
 
-    if (query) {
-      await performSearch(query);
-    } else {
+    loading.value = true;
+
+    // Update the search input field
+    if (searchQueryParam) {
+      searchQuery.value = searchQueryParam;
+      await performSearch(searchQueryParam);
+    } else if (categoryId) {
+      searchQuery.value = '';
       isSearching.value = false;
       searchResults.value = [];
-
-      // If products aren't loaded yet, load them
-      if (productStore.products.length === 0 && !productStore.loading) {
-        loading.value = true;
-        await productStore.fetchProducts();
-        loading.value = false;
-      }
+      await productStore.fetchProductsByCategory(categoryId);
+    } else {
+      searchQuery.value = '';
+      isSearching.value = false;
+      searchResults.value = [];
+      await productStore.fetchProducts();
     }
+
+    loading.value = false;
   },
+  { deep: true },
 );
 
 async function performSearch(query: string) {
@@ -72,16 +96,45 @@ function clearSearch() {
   isSearching.value = false;
   searchResults.value = [];
 }
+
+// Get all categories on component mount
+onMounted(() => {
+  if (categoryStore.categories.length === 0) {
+    categoryStore.fetchCategories();
+  }
+});
 </script>
 
 <template>
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-card-title class="text-h4 my-4 text-white">Products</v-card-title>
+        <v-card-title class="text-h4 my-4 text-white">
+          <template v-if="currentCategory"> {{ currentCategory.name }} Products </template>
+          <template v-else> All Products </template>
+        </v-card-title>
+
+        <!-- Category Description if applicable -->
+        <v-card v-if="currentCategory" class="mb-4 pa-3" variant="outlined">
+          <div class="d-flex align-center">
+            <v-icon :icon="currentCategory.icon" size="large" class="mr-3"></v-icon>
+            <div>
+              <span class="text-body-1">
+                {{ currentCategory.description }}
+              </span>
+              <div class="text-caption" v-if="!loading">
+                {{ productStore.products.length }} products found
+              </div>
+            </div>
+            <v-spacer></v-spacer>
+            <v-btn @click="router.push('/products')" variant="text" prepend-icon="mdi-close">
+              View All Products
+            </v-btn>
+          </div>
+        </v-card>
 
         <!-- Show search query if present -->
-        <v-card v-if="searchQuery" class="mb-4 pa-3" variant="outlined">
+        <v-card v-else-if="searchQuery" class="mb-4 pa-3" variant="outlined">
           <div class="d-flex align-center">
             <div>
               <span class="text-body-1">

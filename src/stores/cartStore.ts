@@ -16,12 +16,25 @@ export const useCartStore = defineStore('cart', {
   getters: {
     totalItems: (state) => state.items.reduce((total, item) => total + item.quantity, 0),
     totalPrice: (state) =>
-      state.items.reduce((total, item) => total + item.product.price * item.quantity, 0),
+      state.items.reduce((total, item) => {
+        const price =
+          typeof item.product.price === 'string'
+            ? parseFloat(item.product.price)
+            : item.product.price;
+        return total + price * item.quantity;
+      }, 0),
     formattedPrice: (state) => {
+      const total = state.items.reduce((total, item) => {
+        const price =
+          typeof item.product.price === 'string'
+            ? parseFloat(item.product.price)
+            : item.product.price;
+        return total + price * item.quantity;
+      }, 0);
       return new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
-      }).format(state.items.reduce((total, item) => total + item.product.price * item.quantity, 0));
+      }).format(total);
     },
   },
   actions: {
