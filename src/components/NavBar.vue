@@ -29,10 +29,19 @@
       <v-btn to="/" variant="text">Home</v-btn>
       <v-btn to="/products" variant="text">Products</v-btn>
       <v-btn to="/categories" variant="text">Categories</v-btn>
-      <v-btn v-if="authStore.isAuthenticated" to="/cart" variant="text">
-        <v-icon>mdi-cart</v-icon>
-      </v-btn>
     </div>
+
+    <!-- Cart Icon (visible on all screen sizes) -->
+    <v-btn v-if="authStore.isAuthenticated" to="/cart" variant="text" class="position-relative">
+      <v-icon>mdi-cart</v-icon>
+      <v-badge
+        v-if="cartStore.totalItems > 0"
+        :content="cartStore.totalItems"
+        color="error"
+        floating
+        dot-color="error"
+      ></v-badge>
+    </v-btn>
 
     <!-- User Menu -->
     <v-menu v-if="authStore.isAuthenticated" min-width="200">
@@ -92,7 +101,11 @@
 
       <template v-if="authStore.isAuthenticated">
         <v-list-item to="/profile" title="Profile" prepend-icon="mdi-account"></v-list-item>
-        <v-list-item to="/cart" title="Cart" prepend-icon="mdi-cart"></v-list-item>
+        <v-list-item to="/cart" title="Cart" prepend-icon="mdi-cart">
+          <template v-slot:append v-if="cartStore.totalItems > 0">
+            <v-chip color="error" size="small" class="ml-2">{{ cartStore.totalItems }}</v-chip>
+          </template>
+        </v-list-item>
 
         <template v-if="authStore.isAdmin">
           <v-divider></v-divider>
@@ -143,12 +156,14 @@
 import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '@/stores/authStore';
+import { useCartStore } from '@/stores/cartStore';
 
 const drawer = ref(false);
 const searchQuery = ref('');
 const router = useRouter();
 const route = useRoute();
 const authStore = useAuthStore();
+const cartStore = useCartStore();
 
 onMounted(() => {
   if (route.path === '/products' && route.query.search) {
