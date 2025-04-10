@@ -30,16 +30,18 @@ const formattedPrice = computed(() => {
 </script>
 
 <template>
-  <v-card class="mx-auto my-3 product-card" max-width="400">
-    <v-img
-      height="200"
-      :src="props.product.image || '/api/placeholder/400/200'"
-      cover
-      :alt="props.product.name"
-    ></v-img>
+  <v-card class="mx-auto my-3 product-card h-100 d-flex flex-column" max-width="400">
+    <div class="cursor-pointer" @click="$router.push(`/products/${props.product.id}`)">
+      <v-img
+        height="200"
+        :src="props.product.image || '/api/placeholder/400/200'"
+        cover
+        :alt="props.product.name"
+      ></v-img>
+    </div>
     <v-card-title>{{ props.product.name }}</v-card-title>
     <v-card-subtitle>{{ formattedPrice }}</v-card-subtitle>
-    <v-card-text>
+    <v-card-text class="flex-grow-1">
       <div class="mb-2">
         {{ props.product.description.substring(0, 50)
         }}{{ props.product.description.length > 50 ? '...' : '' }}
@@ -61,7 +63,7 @@ const formattedPrice = computed(() => {
       <div v-show="show">
         <v-divider></v-divider>
         <v-card-text>
-          <p class="text-body-2 mb-2">{{ props.product.description }}</p>
+          <p class="text-body-2 mb-2">Reviews:</p>
           <div class="d-flex align-center">
             <v-rating
               :model-value="4"
@@ -96,5 +98,9 @@ const formattedPrice = computed(() => {
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2) !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 </style>

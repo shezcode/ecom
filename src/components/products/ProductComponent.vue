@@ -171,7 +171,7 @@ onMounted(() => {
             })
           "
           hide-details
-          class="mb-4"
+          class="mb-4 align-center"
         >
           <template v-slot:append>
             <v-btn

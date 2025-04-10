@@ -3,7 +3,7 @@
     <v-container>
       <v-row justify="space-between">
         <v-col cols="12" md="4" class="text-center text-md-left">
-          <h3 class="text-h6 mb-2">E-Commerce App</h3>
+          <h3 class="text-h6 mb-2">ECOM</h3>
           <p class="text-caption">
             Your one-stop shop for all your shopping needs. Quality products at affordable prices.
           </p>
@@ -64,7 +64,7 @@
 
       <div class="text-center">
         <span class="text-caption">
-          &copy; {{ new Date().getFullYear() }} E-Commerce App. All rights reserved.
+          &copy; {{ new Date().getFullYear() }} ECOM. All rights reserved.
         </span>
       </div>
     </v-container>

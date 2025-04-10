@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import AdminSidebar from '@/components/admin/AdminSidebar.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import NavBar from '@/components/NavBar.vue';
-import AdminSidebar from '@/components/AdminSidebar.vue';
 </script>
 
 <template>

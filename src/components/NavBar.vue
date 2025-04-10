@@ -1,90 +1,104 @@
 <template>
   <v-app-bar color="primary" app dark>
-    <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+    <!-- Increase lateral padding with px-4 class -->
+    <div class="d-flex align-center justify-space-between w-100 px-4">
+      <!-- Left side: Logo and menu icon -->
+      <div class="d-flex align-center">
+        <v-app-bar-nav-icon @click="drawer = !drawer" class="mr-4"></v-app-bar-nav-icon>
 
-    <v-app-bar-title>
-      <router-link to="/" class="text-white text-decoration-none">ECOM</router-link>
-    </v-app-bar-title>
+        <v-app-bar-title>
+          <router-link to="/" class="text-white text-decoration-none">ECOM</router-link>
+        </v-app-bar-title>
+      </div>
 
-    <v-spacer></v-spacer>
+      <!-- Center section: Desktop menu -->
+      <div class="hidden-sm-and-down d-flex align-center">
+        <v-btn to="/" variant="text">Home</v-btn>
+        <v-divider :thickness="2" class="mx-2" vertical></v-divider>
+        <v-btn to="/products" variant="text">Products</v-btn>
+        <v-divider :thickness="2" class="mx-2" vertical></v-divider>
+        <v-btn to="/categories" variant="text">Categories</v-btn>
+        <v-divider :thickness="2" class="mx-2" vertical></v-divider>
+        <v-btn to="/about" variant="text">About Us</v-btn>
+      </div>
 
-    <!-- Search -->
-    <v-text-field
-      v-model="searchQuery"
-      density="compact"
-      variant="solo"
-      prepend-inner-icon="mdi-magnify"
-      label="Search"
-      single-line
-      hide-details
-      @keyup.enter="search"
-      class="hidden-sm-and-down"
-      style="max-width: 300px"
-    ></v-text-field>
+      <!-- Right side: Search bar, cart, user menu -->
+      <div class="d-flex align-center">
+        <!-- Search -->
+        <v-text-field
+          v-model="searchQuery"
+          density="compact"
+          variant="solo"
+          prepend-inner-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+          @keyup.enter="search"
+          class="hidden-sm-and-down mr-4"
+          style="min-width: 350px"
+        ></v-text-field>
 
-    <v-spacer></v-spacer>
-
-    <!-- Desktop Menu -->
-    <div class="hidden-sm-and-down">
-      <v-btn to="/" variant="text">Home</v-btn>
-      <v-btn to="/products" variant="text">Products</v-btn>
-      <v-btn to="/categories" variant="text">Categories</v-btn>
-    </div>
-
-    <!-- Cart Icon (visible on all screen sizes) -->
-    <v-btn v-if="authStore.isAuthenticated" to="/cart" variant="text" class="position-relative">
-      <v-icon>mdi-cart</v-icon>
-      <v-badge
-        v-if="cartStore.totalItems > 0"
-        :content="cartStore.totalItems"
-        color="error"
-        floating
-        dot-color="error"
-      ></v-badge>
-    </v-btn>
-
-    <!-- User Menu -->
-    <v-menu v-if="authStore.isAuthenticated" min-width="200">
-      <template v-slot:activator="{ props }">
-        <v-btn v-bind="props" icon>
-          <v-avatar color="accent" size="32">
-            <span class="text-h6" v-if="!authStore.user?.avatar">
-              {{ userInitials }}
-            </span>
-            <v-img v-else :src="authStore.user?.avatar" alt="User Avatar"></v-img>
-          </v-avatar>
+        <!-- Cart Icon -->
+        <v-btn
+          v-if="authStore.isAuthenticated"
+          to="/cart"
+          variant="text"
+          class="position-relative ml-2"
+        >
+          <v-icon>mdi-cart</v-icon>
+          <v-badge
+            v-if="cartStore.totalItems > 0"
+            :content="cartStore.totalItems"
+            color="error"
+            floating
+            dot-color="error"
+          ></v-badge>
         </v-btn>
-      </template>
-      <v-list>
-        <v-list-item>
-          <v-list-item-title class="text-subtitle-1 font-weight-bold">
-            {{ authStore.userFullName }}
-          </v-list-item-title>
-          <v-list-item-subtitle>{{ authStore.user?.email }}</v-list-item-subtitle>
-        </v-list-item>
-        <v-divider></v-divider>
-        <v-list-item to="/profile">
-          <template v-slot:prepend>
-            <v-icon>mdi-account</v-icon>
-          </template>
-          Profile
-        </v-list-item>
-        <v-list-item v-if="authStore.isAdmin" to="/admin/dashboard">
-          <template v-slot:prepend>
-            <v-icon>mdi-view-dashboard</v-icon>
-          </template>
-          Admin Dashboard
-        </v-list-item>
-        <v-list-item @click="authStore.logout">
-          <template v-slot:prepend>
-            <v-icon>mdi-logout</v-icon>
-          </template>
-          Logout
-        </v-list-item>
-      </v-list>
-    </v-menu>
 
-    <v-btn v-else to="/login" variant="outlined" color="white"> Sign In </v-btn>
+        <!-- User Menu -->
+        <v-menu v-if="authStore.isAuthenticated" min-width="200" class="ml-2">
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props" icon>
+              <v-avatar color="accent" size="32">
+                <span class="text-h6" v-if="!authStore.user?.avatar">
+                  {{ userInitials }}
+                </span>
+                <v-img v-else :src="authStore.user?.avatar" alt="User Avatar"></v-img>
+              </v-avatar>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-list-item-title class="text-subtitle-1 font-weight-bold">
+                {{ authStore.userFullName }}
+              </v-list-item-title>
+              <v-list-item-subtitle>{{ authStore.user?.email }}</v-list-item-subtitle>
+            </v-list-item>
+            <v-divider></v-divider>
+            <v-list-item to="/profile">
+              <template v-slot:prepend>
+                <v-icon>mdi-account</v-icon>
+              </template>
+              Profile
+            </v-list-item>
+            <v-list-item v-if="authStore.isAdmin" to="/admin/dashboard">
+              <template v-slot:prepend>
+                <v-icon>mdi-view-dashboard</v-icon>
+              </template>
+              Admin Dashboard
+            </v-list-item>
+            <v-list-item @click="authStore.logout">
+              <template v-slot:prepend>
+                <v-icon>mdi-logout</v-icon>
+              </template>
+              Logout
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+        <v-btn v-else to="/login" variant="outlined" color="white" class="ml-2"> Sign In </v-btn>
+      </div>
+    </div>
   </v-app-bar>
 
   <!-- Navigation Drawer for Mobile -->
@@ -174,8 +188,8 @@ onMounted(() => {
 watch(
   () => route.query.search,
   (newQuery) => {
-    if (route.path === '/products' && newQuery) {
-      searchQuery.value = newQuery as string;
+    if (route.path === '/products') {
+      searchQuery.value = (newQuery as string) || '';
     }
   },
 );

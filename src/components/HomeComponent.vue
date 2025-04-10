@@ -98,7 +98,7 @@ const getCategoryColor = (index: number) => {
                     color="white"
                     variant="elevated"
                     size="large"
-                    :to="`/categories?id=${category.id}`"
+                    :to="`/products?categoryId=${category.id}`"
                   >
                     Shop {{ category.name }}
                     <v-icon end>{{ category.icon }}</v-icon>
