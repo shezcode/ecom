@@ -90,7 +90,7 @@ const goToRegister = () => {
             </v-btn>
 
             <div class="text-center">
-              <v-btn variant="text" @click="goToRegister">
+              <v-btn variant="text" @click="goToRegister" class="highlight">
                 Don't have an account? Register here
               </v-btn>
             </div>
@@ -114,5 +114,11 @@ const goToRegister = () => {
   min-height: 80vh;
   display: flex;
   align-items: center;
+}
+
+.highlight {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-style: italic;
 }
 </style>

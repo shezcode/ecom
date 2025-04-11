@@ -62,8 +62,7 @@ const formattedPrice = computed(() => {
     <v-expand-transition>
       <div v-show="show">
         <v-divider></v-divider>
-        <v-card-text>
-          <p class="text-body-2 mb-2">Reviews:</p>
+        <v-card-text class="d-flex flex-row">
           <div class="d-flex align-center">
             <v-rating
               :model-value="4"
@@ -75,6 +74,12 @@ const formattedPrice = computed(() => {
             ></v-rating>
             <span class="text-caption text-grey ms-2">(4.0)</span>
           </div>
+          <v-btn
+            class="d-flex align-center"
+            variant="flat"
+            @click="$router.push(`/products/${props.product.id}`)"
+            >details</v-btn
+          >
         </v-card-text>
       </div>
     </v-expand-transition>

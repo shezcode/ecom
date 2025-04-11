@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import LoginComponent from '@/components/LoginComponent.vue';
+import MainLayout from '@/layouts/MainLayout.vue';
 </script>
 
 <template>
-  <LoginComponent />
+  <MainLayout>
+    <LoginComponent />
+  </MainLayout>
 </template>

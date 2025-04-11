@@ -8,6 +8,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null as User | null,
     token: localStorage.getItem('token'),
+    userId: localStorage.getItem('userId'),
     isAuthenticated: localStorage.getItem('token') !== null,
     error: null as string | null,
     loading: false,
@@ -29,10 +30,13 @@ export const useAuthStore = defineStore('auth', {
         if (response.data && response.data.length > 0) {
           const user = response.data[0];
           this.user = user;
+          this.userId = user.id;
           this.token = `JWT-TOKEN-${Math.random().toString(36).substring(2)}`;
           this.isAuthenticated = true;
 
+          // Store both token and userId in localStorage
           localStorage.setItem('token', this.token);
+          localStorage.setItem('userId', user.id);
 
           if (user.role === 'admin') {
             router.push('/admin/dashboard');
@@ -53,17 +57,22 @@ export const useAuthStore = defineStore('auth', {
     async logout() {
       this.user = null;
       this.token = null;
+      this.userId = null;
       this.isAuthenticated = false;
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       router.push('/login');
     },
 
     async checkAuth() {
-      if (!this.token) return;
+      if (!this.token || !this.userId) {
+        this.logout();
+        return;
+      }
 
       this.loading = true;
       try {
-        const response = await api.get('/users/1');
+        const response = await api.get(`/users/${this.userId}`);
         this.user = response.data;
         this.isAuthenticated = true;
       } catch (err) {

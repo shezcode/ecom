@@ -1,4 +1,3 @@
-import api from '@/services/api';
 import type { Product } from '@/types/product';
 import { defineStore } from 'pinia';
 
@@ -68,7 +67,7 @@ export const useCartStore = defineStore('cart', {
     },
     clearCart() {
       this.items = [];
-      this.saveToLocalStorage();
+      localStorage.removeItem('cart');
     },
     loadFromLocalStorage() {
       const savedCart = localStorage.getItem('cart');

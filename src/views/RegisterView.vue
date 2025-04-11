@@ -1,3 +1,10 @@
+<script setup lang="ts">
+import RegisterComponent from '@/components/RegisterComponent.vue';
+import MainLayout from '@/layouts/MainLayout.vue';
+</script>
+
 <template>
-  <div>REGISTER</div>
+  <MainLayout>
+    <RegisterComponent />
+  </MainLayout>
 </template>

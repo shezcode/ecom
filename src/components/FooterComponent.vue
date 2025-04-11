@@ -36,10 +36,18 @@
         <v-col cols="6" md="2" class="text-center text-md-left">
           <h4 class="text-subtitle-1 font-weight-bold mb-2">Categories</h4>
           <v-list density="compact" bg-color="transparent" color="white">
-            <v-list-item to="/categories" title="Clothing" density="compact"></v-list-item>
-            <v-list-item to="/categories" title="Electronics" density="compact"></v-list-item>
-            <v-list-item to="/categories" title="Books" density="compact"></v-list-item>
-            <v-list-item to="/categories" title="Home" density="compact"></v-list-item>
+            <v-list-item
+              to="/products?categoryId=1"
+              title="Clothing"
+              density="compact"
+            ></v-list-item>
+            <v-list-item
+              to="/products?categoryId=2"
+              title="Electronics"
+              density="compact"
+            ></v-list-item>
+            <v-list-item to="/products?categoryId=3" title="Books" density="compact"></v-list-item>
+            <v-list-item to="/products?categoryId=4" title="Home" density="compact"></v-list-item>
           </v-list>
         </v-col>
 
@@ -55,7 +63,7 @@
           </div>
           <div class="d-flex align-center">
             <v-icon size="small" class="me-2">mdi-email</v-icon>
-            <span class="text-caption">info@ecommerceapp.com</span>
+            <span class="text-caption">info@ecom.com</span>
           </div>
         </v-col>
       </v-row>
