@@ -8,6 +8,12 @@ import vuetify from 'vite-plugin-vuetify';
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    host: '0.0.0.0',
+    hmr: {
+      host: 'shez-linux',
+    },
+  },
   plugins: [
     vue(),
     vueJsx(),

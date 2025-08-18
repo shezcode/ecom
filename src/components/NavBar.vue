@@ -17,8 +17,6 @@
         <v-btn to="/products" variant="text">Products</v-btn>
         <v-divider :thickness="2" class="mx-2" vertical></v-divider>
         <v-btn to="/categories" variant="text">Categories</v-btn>
-        <v-divider :thickness="2" class="mx-2" vertical></v-divider>
-        <v-btn to="/about" variant="text">About Us</v-btn>
       </div>
 
       <!-- Right side: Search bar, cart, user menu -->
@@ -47,12 +45,7 @@
         </v-btn>
 
         <!-- Cart Icon -->
-        <v-btn
-          v-if="authStore.isAuthenticated"
-          to="/cart"
-          variant="text"
-          class="position-relative ml-2"
-        >
+        <v-btn to="/cart" variant="text" class="position-relative ml-2">
           <v-icon>mdi-cart</v-icon>
           <v-badge
             v-if="cartStore.totalItems > 0"
@@ -145,52 +138,46 @@
 
       <v-divider></v-divider>
 
-      <template v-if="authStore.isAuthenticated">
-        <v-list-item to="/profile" title="Profile" prepend-icon="mdi-account"></v-list-item>
-        <v-list-item to="/cart" title="Cart" prepend-icon="mdi-cart">
-          <template v-slot:append v-if="cartStore.totalItems > 0">
-            <v-chip color="error" size="small" class="ml-2">{{ cartStore.totalItems }}</v-chip>
-          </template>
-        </v-list-item>
-
-        <template v-if="authStore.isAdmin">
-          <v-divider></v-divider>
-          <v-list-subheader>Admin</v-list-subheader>
-          <v-list-item
-            to="/admin/dashboard"
-            title="Dashboard"
-            prepend-icon="mdi-view-dashboard"
-          ></v-list-item>
-          <v-list-item
-            to="/admin/products"
-            title="Manage Products"
-            prepend-icon="mdi-package-variant"
-          ></v-list-item>
-          <v-list-item
-            to="/admin/categories"
-            title="Manage Categories"
-            prepend-icon="mdi-shape-outline"
-          ></v-list-item>
-          <v-list-item
-            to="/admin/orders"
-            title="Manage Orders"
-            prepend-icon="mdi-clipboard-list"
-          ></v-list-item>
-          <v-list-item
-            to="/admin/users"
-            title="Manage Users"
-            prepend-icon="mdi-account-multiple"
-          ></v-list-item>
+      <v-list-item to="/profile" title="Profile" prepend-icon="mdi-account"></v-list-item>
+      <v-list-item to="/cart" title="Cart" prepend-icon="mdi-cart">
+        <template v-slot:append v-if="cartStore.totalItems > 0">
+          <v-chip color="error" size="small" class="ml-2">{{ cartStore.totalItems }}</v-chip>
         </template>
+      </v-list-item>
 
+      <template v-if="authStore.isAdmin">
         <v-divider></v-divider>
+        <v-list-subheader>Admin</v-list-subheader>
         <v-list-item
-          @click="authStore.logout"
-          title="Logout"
-          prepend-icon="mdi-logout"
+          to="/admin/dashboard"
+          title="Dashboard"
+          prepend-icon="mdi-view-dashboard"
+        ></v-list-item>
+        <v-list-item
+          to="/admin/products"
+          title="Manage Products"
+          prepend-icon="mdi-package-variant"
+        ></v-list-item>
+        <v-list-item
+          to="/admin/categories"
+          title="Manage Categories"
+          prepend-icon="mdi-shape-outline"
+        ></v-list-item>
+        <v-list-item
+          to="/admin/orders"
+          title="Manage Orders"
+          prepend-icon="mdi-clipboard-list"
+        ></v-list-item>
+        <v-list-item
+          to="/admin/users"
+          title="Manage Users"
+          prepend-icon="mdi-account-multiple"
         ></v-list-item>
       </template>
-      <template v-else>
+
+      <v-divider></v-divider>
+      <v-list-item @click="authStore.logout" title="Logout" prepend-icon="mdi-logout"></v-list-item>
+      <template>
         <v-list-item to="/login" title="Sign In" prepend-icon="mdi-login"></v-list-item>
         <v-list-item to="/register" title="Register" prepend-icon="mdi-account-plus"></v-list-item>
       </template>

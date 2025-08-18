@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import router from '@/router';
 import api from '@/services/api';
 import type { User } from '@/types/user';
+import { useCartStore } from './cartStore';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -54,6 +55,55 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    async register(userData: Omit<User, 'id'>) {
+      this.loading = true;
+      this.error = null;
+      try {
+        // Check if username exists using your backend route
+        try {
+          const usernameResponse = await api.get(`/users/username/${userData.username}`);
+          // If we get a response (not 404), username exists
+          if (usernameResponse.data) {
+            this.error = 'Username already exists';
+            return;
+          }
+        } catch (usernameError: any) {
+          // 404 is good - means username doesn't exist
+          if (usernameError.response?.status !== 404) {
+            throw usernameError; // Re-throw if it's not a 404
+          }
+        }
+
+        // Check if email exists using your backend route
+        try {
+          const emailResponse = await api.get(`/users/email/${userData.email}`);
+          // If we get a response (not 404), email exists
+          if (emailResponse.data) {
+            this.error = 'Email already exists';
+            return;
+          }
+        } catch (emailError: any) {
+          // 404 is good - means email doesn't exist
+          if (emailError.response?.status !== 404) {
+            throw emailError; // Re-throw if it's not a 404
+          }
+        }
+
+        // Create new user (your backend handles ID generation)
+        const response = await api.post('/users', userData);
+
+        console.log('User created successfully:', response.data);
+
+        // Registration successful
+        this.error = null;
+      } catch (err: any) {
+        console.error('Registration error:', err);
+        this.error = err.response?.data?.error || 'Error during registration';
+      } finally {
+        this.loading = false;
+      }
+    },
+
     async logout() {
       this.user = null;
       this.token = null;
@@ -61,6 +111,9 @@ export const useAuthStore = defineStore('auth', {
       this.isAuthenticated = false;
       localStorage.removeItem('token');
       localStorage.removeItem('userId');
+
+      const cartStore = useCartStore();
+      cartStore.clearCart();
       router.push('/login');
     },
 
